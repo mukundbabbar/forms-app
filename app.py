@@ -12,17 +12,17 @@ client = Client(account_sid, auth_token)
 from_number = os.environ['FROM_PHONE_NUMBER']
 
 
-def send_sms(to_number, errors):
+def send_sms(to_number, txt, results, errors):
     print("Sending SMS")
     try:
         message = client.messages \
             .create(
-                body='Congurations! Lockdown will be over soon',
+                body=txt,
                 from_=from_number,
                 status_callback=status_callback_url,
                 to=to_number
             )
-        print(message)
+        results.append("SMS Sent.. Check delivery app for delivery confirmation")
     except Exception as e:
         errors.append("Error sending SMS")
         print(e)
@@ -45,22 +45,22 @@ def validate(num, errors):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     errors = []
-    results = {}
+    results = []
     if request.method == "POST":
         # get url that the user has entered
         try:
             number = request.form['number']
-            # r = requests.get(number)
+            msg = request.form['txt']
             print(number)
             to_number = number
             # validate number
             if validate(to_number, errors) == True:
                 # send SMS
-                send_sms(number, errors)
+                send_sms(number, msg, results,errors)
                 # Wait for delivery
         except Exception as e:
             errors.append(
-                "Unable to send text number. Please provide phone number and try again."
+                "Unable to send SMS. Please provide phone number and try again."
             )
             print(e)
     return render_template('index.html', errors=errors, results=results)

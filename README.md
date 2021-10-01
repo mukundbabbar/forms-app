@@ -1,6 +1,6 @@
 # forms-app
 
-This repository is for forms-app microservice. 
+This repository is for forms-app microservice which is used to send SMS to a Twilio verified phone number
 
 ## Prereq - 
 Configure following environment variables
@@ -27,8 +27,8 @@ Open app url in browser
 
 
 
-- The application takes a phone number as the input and sends a sms to this number. 
-- It checks if the number is valid
+- The application takes a phone number and message as  input and sends it. 
+- It also checks if the number is valid
 
 Invalid phone number
 
@@ -38,3 +38,6 @@ Invalid phone number
 SMS Sent succesfully 
 
 <img width="395" alt="Screen Shot 2021-10-01 at 8 44 55 PM" src="https://user-images.githubusercontent.com/5012739/135607562-787c754d-bc68-4d2b-bd48-d6665246a49f.png">
+
+Check the delivery confirmation on delivery-notification-app
+
